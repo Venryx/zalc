@@ -79,3 +79,13 @@ Besides avoiding the problems already listed above, there are some other improve
 3) Possibly: Automate the step of adding the line that includes the `.yalc` folders as workspace folders.
 4) Possibly: Show a warning message if you've forgotten to npm-publish a library that you've made changes to.
 5) Possibly: Add a `--deep` flag to `push`, which traverses up the dependency tree until it reaches the "root project(s)". (If yalc is used not only in the root project to include a dependency, but also in that dependency to include a subdependency, then whenever you change the subdependency, you have to run `yalc push` twice: once in subdep, and once in dep. The `--deep` flag will make this unnecessary.)
+
+## Usage
+
+1) Install yalc: `npm install -g yalc`
+2) Install zalc: `npm install -g zalc`
+3) TODO
+4) Add `.yalc` and `yalk.lock` to your repo's `.gitignore` file. (assuming you want your local library changes to stay local to your computer)
+5) TODO
+
+Remember that zalc is just a wrapper for yalc (setting up monkey-patches/call-interceptions prior to yalc's execution), so -- generally speaking -- you can update or modify yalc without zalc breaking. It also means that there are lots of features of yalc that zalc just leaves "as is"; for information on these "other commands and functionality", you can reference the general [yalc documentation here](https://github.com/wclr/yalc).
