@@ -94,6 +94,6 @@ Besides avoiding the problems already listed above, there are some other improve
 3) Replace `yalc` with `zalc` for any yalc command where you want the `zalc` modifications to apply.
 
 Additional:
-* Add `.yalc` and `yalk.lock` to the `.gitignore` file of each repo you use `yalc` with (either pushing or adding). (This is assuming you want your local library changes to stay local to your computer.)
+* Add `.yalc` and `yalk.lock` to the `.gitignore` file of each repo where you call `yalc add`. (This is assuming you want your local library changes to stay local to your computer.)
 
 Remember that zalc is just a wrapper for yalc (setting up monkey-patches/call-interceptions prior to yalc's execution), so -- generally speaking -- you can update or modify yalc without zalc breaking. It also means that there are lots of features of yalc that zalc just leaves "as is"; for information on these "other commands and functionality", you can reference the general [yalc documentation here](https://github.com/wclr/yalc).
