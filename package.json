@@ -3,5 +3,20 @@
 	"version": "0.0.1",
 	"license": "MIT",
 	"author": "Venryx (https://venryx.com)",
-	"repository": "https://github.com/Venryx/zalc"
- }
+	"repository": "https://github.com/Venryx/zalc",
+	"type": "module",
+	"bin": {
+		"zalc": "Dist/Bin.js"
+	},
+	"scripts": {
+		"dev": "tsc --watch",
+		"dist": "tsc"
+	},
+	"devDependencies": {
+		"@types/node": "^16.11.9",
+		"typescript": "^4.5.2"
+	},
+	"dependencies": {
+		"globby": "^12.0.2"
+	}
+}

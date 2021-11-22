@@ -71,10 +71,10 @@ This is the best solution I've found from pre-existing software. It still has so
 
 ## Improvements
 
-Zalc intends to improve upon the best solution above (`yalc add ... --pure` + adding `.yalc/*` to `workspaces`), by wrapping the yalc tool -- automating some steps and extending Yalc's functionality.
+Zalc improves upon the best solution above (`yalc add ... --pure` + adding `.yalc/*` to `workspaces`), by wrapping the yalc tool -- automating some steps and extending Yalc's functionality.
 
-Besides avoiding the problems already listed above, there are some other improvements that Zalc will provide:
-1) Allow `yalc push` to include folders excluded from the package.json's files-field/npm-publishes (as mentioned under Yalc's first drawback).
+Besides avoiding the problems already listed above, there are some other improvements that Zalc aims to provide: (added features have a ✔️, while planned features have a ⚙️)
+1) ✔️ Allow `yalc push` to include folders excluded from the package.json's files-field/npm-publishes (as mentioned under Yalc's first drawback).
 
 	This is particularly useful for allowing "nested" yalc-inclusions: If the root project yalc-includes dep A, and dep A yalc-includes subdep B, this change allows dep A to say "include my `.yalc` folder when I run `yalc push`, so my parent can receive local changes to subdep B through me".
 
@@ -82,17 +82,18 @@ Besides avoiding the problems already listed above, there are some other improve
 	* Add dep A's `.yalc/*` folders to the root project's workspaces folder. [not yet tested]
 	* Add aliases/path-resolutions to the relevant tools. (webpack, typescript, etc.)
 	* Have the root project use the "inside out" subdependency import pattern. [to be explained later]
-2) Add a `--watch` flag to `push`, which reruns the push whenever the package's files change.
-3) Possibly: Automate the step of adding the line that includes the `.yalc` folders as workspace folders.
-4) Possibly: Show a warning message if you've forgotten to npm-publish a library that you've made changes to.
-5) Possibly: Add a `--deep` flag to `push`, which traverses up the dependency tree until it reaches the "root project(s)". (If yalc is used not only in the root project to include a dependency, but also in that dependency to include a subdependency, then whenever you change the subdependency, you have to run `yalc push` twice: once in subdep, and once in dep. The `--deep` flag will make this unnecessary.)
+2) ⚙️ Add a `--watch` flag to `push`, which reruns the push whenever the package's files change.
+3) ⚙️ Possibly: Automate the step of adding the line that includes the `.yalc` folders as workspace folders.
+4) ⚙️ Possibly: Show a warning message if you've forgotten to npm-publish a library that you've made changes to.
+5) ⚙️ Possibly: Add a `--deep` flag to `push`, which traverses up the dependency tree until it reaches the "root project(s)". (If yalc is used not only in the root project to include a dependency, but also in that dependency to include a subdependency, then whenever you change the subdependency, you have to run `yalc push` twice: once in subdep, and once in dep. The `--deep` flag will make this unnecessary.)
 
 ## Usage
 
 1) Install yalc: `npm install -g yalc`
 2) Install zalc: `npm install -g zalc`
-3) TODO
-4) Add `.yalc` and `yalk.lock` to your repo's `.gitignore` file. (assuming you want your local library changes to stay local to your computer)
-5) TODO
+3) Replace `yalc` with `zalc` for any yalc command where you want the `zalc` modifications to apply.
+
+Additional:
+* Add `.yalc` and `yalk.lock` to the `.gitignore` file of each repo you use `yalc` with (either pushing or adding). (This is assuming you want your local library changes to stay local to your computer.)
 
 Remember that zalc is just a wrapper for yalc (setting up monkey-patches/call-interceptions prior to yalc's execution), so -- generally speaking -- you can update or modify yalc without zalc breaking. It also means that there are lots of features of yalc that zalc just leaves "as is"; for information on these "other commands and functionality", you can reference the general [yalc documentation here](https://github.com/wclr/yalc).
