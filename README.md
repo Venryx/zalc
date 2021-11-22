@@ -75,7 +75,7 @@ Zalc intends to improve upon the best solution above (`yalc add ... --pure` + ad
 
 Besides avoiding the problems already listed above, there are some other improvements that Zalc will provide:
 1) Allow `yalc push` to include folders excluded from the package.json's files-field/npm-publishes (as mentioned under Yalc's first drawback). This is particularly useful for allowing "nested" yalc-inclusions. (ie. if the root project yalc-includes dep A, and dep A yalc-includes subdep B, this change allows dep A to say "include my `.yalc` folder when I run `yalc push`, so my parent can receive changes to subdep B through me")
-2) Automate the step of adding the line that includes the `.yalc` folders as workspace folders.
-3) Showing a warning message if you've forgotten to npm-publish a library that you've made changes to.
-4) Adding a `--watch` flag to `push`, which reruns the push whenever the package's files change.
-5) Adding a `--deep` flag to `push`, which traverses up the dependency tree until it reaches the "root project(s)". (If yalc is used not only in the root project to include a dependency, but also in that dependency to include a subdependency, then whenever you change the subdependency, you have to run `yalc push` twice: once in subdep, and once in dep. The `--deep` flag will make this unnecessary.)
+2) Add a `--watch` flag to `push`, which reruns the push whenever the package's files change.
+3) Possibly: Automate the step of adding the line that includes the `.yalc` folders as workspace folders.
+4) Possibly: Show a warning message if you've forgotten to npm-publish a library that you've made changes to.
+5) Possibly: Add a `--deep` flag to `push`, which traverses up the dependency tree until it reaches the "root project(s)". (If yalc is used not only in the root project to include a dependency, but also in that dependency to include a subdependency, then whenever you change the subdependency, you have to run `yalc push` twice: once in subdep, and once in dep. The `--deep` flag will make this unnecessary.)
