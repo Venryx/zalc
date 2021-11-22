@@ -48,7 +48,10 @@ Customizable tools: (eg. file-syncer)
 ### Yalc
 
 General:
-1) If you have a dependency [A] that is yalc-including a further subdependency [B], and you want that subdependency's latest code to be seen in the root project, you need to either include the `.yalc` folder in the `files` field of dep A (which adds bloat to npm publishes -- though it's what I currently use for personal packages), hack the yalc code to include the `.yalc` folder for dep A when running `yalc public/push` (may automate this as part of zalc in the future), or use an absolute-path `link:` entry for A's subdependencies (which will annoy other developers as they have to exactly match the layout of those subdependency source-folders on their computers; also, since it uses `link:`, it causes the root `yarn.lock` to be incomplete, which has the drawbacks listed earlier).
+1) If you have a dependency [A] that is yalc-including a further subdependency [B], and you want that subdependency's latest code to be seen in the root project, you need to either:
+* Include the `.yalc` folder in the `files` field of dep A. (which adds bloat to npm publishes)
+* Hack the yalc code to include the `.yalc` folder for dep A when running `yalc public/push`. (this is planned to be automated by zalc; see "Improvements" section)
+* Use an absolute-path `link:` entry for A's subdependencies. (which will annoy other developers as they have to exactly match the layout of those subdependency source-folders on their computers; also, since it uses `link:`, it causes the root `yarn.lock` to be incomplete, which has the drawbacks listed earlier)
 
 `yalc add ...`
 * TODO
@@ -66,15 +69,13 @@ General:
 
 This is the best solution I've found from pre-existing software. It still has some rough points, however, which are outlined below.
 
-## Improvement
+## Improvements
 
 Zalc intends to improve upon the best solution above (`yalc add ... --pure` + adding `.yalc/*` to `workspaces`), by wrapping the yalc tool, to automate some steps and extend Yalc's functionality.
 
-Besides attempting to resolve or workaround the major drawbacks seen in the listing above, there are some other smaller improvements that Zalc will provide:
-1) Automate the step of adding the line that includes the `.yalc` folders as workspace folders.
-2) Showing a warning message if you've forgotten to npm-publish a library that you've made changes to.
-3) Adding a `push-auto` command, which runs `push` whenever the package's files change.
-4) Adding a `--deep` flag to the `push`/`push-auto` commands, which traverses up the dependency tree until it reaches the "root projects". (If yalc is used not only in the root project to include a dependency, but also in that dependency to include a subdependency, then whenever you change the subdependency, you have to run `yalc push` twice: once in subdep, and once in dep. The `--deep` flag will make this unnecessary.)
-
-Remaining drawbacks:
-* As of now, Yalc's first drawback (if yalc is at multiple levels, each middle-level needs to include the subdeps in its npm-publish for local subdep changes to be visible in the root project) still applies to zalc as well.
+Besides avoiding the problems already listed above, there are some other improvements that Zalc will provide:
+1) Allow `yalc push` to include folders excluded from the package.json's files-field/npm-publishes (as mentioned under Yalc's first drawback). This is particularly useful for allowing "nested" yalc-inclusions. (ie. if the root project yalc-includes dep A, and dep A yalc-includes subdep B, this change allows dep A to say "include my `.yalc` folder when I run `yalc push`, so my parent can receive changes to subdep B through me")
+2) Automate the step of adding the line that includes the `.yalc` folders as workspace folders.
+3) Showing a warning message if you've forgotten to npm-publish a library that you've made changes to.
+4) Adding a `--watch` flag to `push`, which reruns the push whenever the package's files change.
+5) Adding a `--deep` flag to `push`, which traverses up the dependency tree until it reaches the "root project(s)". (If yalc is used not only in the root project to include a dependency, but also in that dependency to include a subdependency, then whenever you change the subdependency, you have to run `yalc push` twice: once in subdep, and once in dep. The `--deep` flag will make this unnecessary.)
