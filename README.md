@@ -13,7 +13,7 @@ Base: manual copying (tedious, error-prone)
 ### NPM link (and such)
 
 `npm link ...`
-* Links are lost on `npm install`.
+* Links are lost on `npm install`. (you can use a tool like [npm-safe-install](https://github.com/UD-UD/npm-safe-install) to help with this, but it has its own issues -- such as slowing down package installs, and breaking some file-watcher tooling [eg. vscode's typescript typings can get messed up in some cases, requiring an IDE restart])
 
 `npm install file:...`
 * TODO
