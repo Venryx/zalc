@@ -1,6 +1,6 @@
 # Zalc
 
-A wrapper around yalc that adds some additional features.
+A wrapper around [yalc](https://github.com/wclr/yalc) that adds some additional features.
 
 ## Problem
 
