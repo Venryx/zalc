@@ -26,6 +26,8 @@ Using `file:`, `link:`, or `portal:` protocols:
 * For `link`: Links do not follow subdependencies, meaning `yarn.lock` is incomplete. (likely to cause subtle CI/docker build issues down the road)
 * For `portal`: Portals can only point to folders within the repo root, meaning you still need a tool that gathers the dependency files appropriately.
 
+> One idea to avoid the drawback of `link:` entries (of `yarn.lock` becoming incomplete) could be to combine each `link:` entry with a `portal:` entry, to a hollow fake-package (inserted into `.yalc` or something) containing nothing but an identical list of subdependencies; the `link:` entry thus includes the library's own code, while the "fake" `portal:` entry includes the library's subdependencies. Haven't tested this yet, however. 
+
 Using auto-found workspaces:
 * Workspaces are still portals under-the-hood, so have the same issue listed above. (can only point to folders within the repo root)
 
@@ -44,6 +46,9 @@ Customizable tools: (eg. file-syncer)
 * TODO
 
 ### Yalc
+
+General:
+1) If you have a dependency [A] that is yalc-including a further subdependency [B], and you want that subdependency's latest code to be seen in the root project, you need to either include the `.yalc` folder in the `files` field of dep A (which adds bloat to npm publishes -- though it's what I currently use for personal packages), hack the yalc code to include the `.yalc` folder for dep A when running `yalc public/push` (may automate this as part of zalc in the future), or use an absolute-path `link:` entry for A's subdependencies (which will annoy other developers as they have to exactly match the layout of those subdependency source-folders on their computers; also, since it uses `link:`, it causes the root `yarn.lock` to be incomplete, which has the drawbacks listed earlier).
 
 `yalc add ...`
 * TODO
@@ -65,3 +70,5 @@ However, this still requires some manual work that would be nice to automate awa
 1) Adding the line that includes the `.yalc` folders as workspace folders.
 2) Warning you when you have not npm-published a library that you've made changes to.
 3) etc.
+
+With these changes, this appears the best overall solution to me. That said, it still has the drawbacks listed in Yalc's "General" section. (the main problem being the first one)
