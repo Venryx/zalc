@@ -71,7 +71,7 @@ This is the best solution I've found from pre-existing software. It still has so
 
 ## Improvements
 
-Zalc intends to improve upon the best solution above (`yalc add ... --pure` + adding `.yalc/*` to `workspaces`), by wrapping the yalc tool, to automate some steps and extend Yalc's functionality.
+Zalc intends to improve upon the best solution above (`yalc add ... --pure` + adding `.yalc/*` to `workspaces`), by wrapping the yalc tool -- automating some steps and extending Yalc's functionality.
 
 Besides avoiding the problems already listed above, there are some other improvements that Zalc will provide:
 1) Allow `yalc push` to include folders excluded from the package.json's files-field/npm-publishes (as mentioned under Yalc's first drawback). This is particularly useful for allowing "nested" yalc-inclusions. (ie. if the root project yalc-includes dep A, and dep A yalc-includes subdep B, this change allows dep A to say "include my `.yalc` folder when I run `yalc push`, so my parent can receive changes to subdep B through me")
