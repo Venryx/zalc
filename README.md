@@ -80,7 +80,7 @@ Besides avoiding the problems already listed above, there are some other improve
 
 	Note that for this subdep-supplying to work throughout the root project's codebase, you need to either:
 	* Add dep A's `.yalc/*` folders to the root project's workspaces folder. [not yet tested]
-	* Add aliases/path-resolutions to webpack and such.
+	* Add aliases/path-resolutions to the relevant tools. (webpack, typescript, etc.)
 	* Have the root project use the "inside out" subdependency import pattern. [to be explained later]
 2) Add a `--watch` flag to `push`, which reruns the push whenever the package's files change.
 3) Possibly: Automate the step of adding the line that includes the `.yalc` folders as workspace folders.
