@@ -79,7 +79,7 @@ Besides avoiding the problems already listed above, there are some other improve
 	This is particularly useful for allowing "nested" yalc-inclusions: If the root project yalc-includes dep A, and dep A yalc-includes subdep B, this change allows dep A to say "include my `.yalc` folder when I run `yalc push`, so my parent can receive local changes to subdep B through me".
 
 	Note that for this subdep-supplying to work throughout the root project's codebase, you need to either:
-	* Add dep A's `.yalc/*` folders to the root project's workspaces folder [not yet tested].
+	* Add dep A's `.yalc/*` folders to the root project's workspaces folder. [not yet tested]
 	* Add aliases/path-resolutions to webpack and such.
 	* Have the root project use the "inside out" subdependency import pattern. [to be explained later]
 2) Add a `--watch` flag to `push`, which reruns the push whenever the package's files change.
