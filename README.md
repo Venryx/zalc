@@ -62,13 +62,19 @@ General:
 `yalc add ... --pure`
 * TODO
 
-`yalc add ... --pure` + manual inclusion of `.yalc` folder to `workspaces`
+`yalc add ... --pure` + adding `.yalc/*` to `workspaces`
 
-This is the best solution I've found from pre-existing software.
+This is the best solution I've found from pre-existing software. It still has some rough points, however, which are outlined below.
 
-However, this still requires some manual work that would be nice to automate away:
-1) Adding the line that includes the `.yalc` folders as workspace folders.
-2) Warning you when you have not npm-published a library that you've made changes to.
-3) etc.
+## Improvement
 
-With these changes, this appears the best overall solution to me. That said, it still has the drawbacks listed in Yalc's "General" section. (the main problem being the first one)
+Zalc intends to improve upon the best solution above (`yalc add ... --pure` + adding `.yalc/*` to `workspaces`), by wrapping the yalc tool, to automate some steps and extend Yalc's functionality.
+
+Besides attempting to resolve or workaround the major drawbacks seen in the listing above, there are some other smaller improvements that Zalc will provide:
+1) Automate the step of adding the line that includes the `.yalc` folders as workspace folders.
+2) Showing a warning message if you've forgotten to npm-publish a library that you've made changes to.
+3) Adding a `push-auto` command, which runs `push` whenever the package's files change.
+4) Adding a `--deep` flag to the `push`/`push-auto` commands, which traverses up the dependency tree until it reaches the "root projects". (If yalc is used not only in the root project to include a dependency, but also in that dependency to include a subdependency, then whenever you change the subdependency, you have to run `yalc push` twice: once in subdep, and once in dep. The `--deep` flag will make this unnecessary.)
+
+Remaining drawbacks:
+* As of now, Yalc's first drawback (if yalc is at multiple levels, each middle-level needs to include the subdeps in its npm-publish for local subdep changes to be visible in the root project) still applies to zalc as well.
