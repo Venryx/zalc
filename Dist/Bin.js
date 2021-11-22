@@ -12,21 +12,23 @@ Array.prototype.filter = function (...args) {
     if (func.toString().includes("return !ignoreRule.ignores(f);")) {
         const workingDir = process.cwd();
         const yalcIgnoreFilePath = paths.join(workingDir, ".yalcignore");
-        const yalcIgnoreStr = fs.readFileSync(yalcIgnoreFilePath).toString().replace(/\r/g, "");
-        const yalcIgnoreLines = yalcIgnoreStr.split("\n");
-        const yalcIncludePatterns = yalcIgnoreLines.filter(a => a.startsWith("!")).map(a => a.replace("!", ""));
-        //console.log("Test1:", yalcIncludePatterns);
-        const yalcIncludePaths = globbySync(yalcIncludePatterns, { dot: true });
-        let zalcAddedFiles = 0;
-        for (const path of yalcIncludePaths) {
-            if (!result.includes(path)) {
-                //console.log("Adding:", path);
-                result.push(path);
-                zalcAddedFiles++;
+        if (fs.existsSync(yalcIgnoreFilePath)) {
+            const yalcIgnoreStr = fs.readFileSync(yalcIgnoreFilePath).toString().replace(/\r/g, "");
+            const yalcIgnoreLines = yalcIgnoreStr.split("\n");
+            const yalcIncludePatterns = yalcIgnoreLines.filter(a => a.startsWith("!")).map(a => a.replace("!", ""));
+            //console.log("Test1:", yalcIncludePatterns);
+            const yalcIncludePaths = globbySync(yalcIncludePatterns, { dot: true });
+            let zalcAddedFiles = 0;
+            for (const path of yalcIncludePaths) {
+                if (!result.includes(path)) {
+                    //console.log("Adding:", path);
+                    result.push(path);
+                    zalcAddedFiles++;
+                }
             }
-        }
-        if (zalcAddedFiles > 0) {
-            console.log(`Zalc added ${zalcAddedFiles} additional files to the yalc publish, based on exclusions in the .yalcignore file.`);
+            if (zalcAddedFiles > 0) {
+                console.log(`Zalc added ${zalcAddedFiles} additional files to the yalc publish, based on exclusions in the .yalcignore file.`);
+            }
         }
     }
     return result;
