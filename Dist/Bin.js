@@ -17,7 +17,7 @@ Array.prototype.filter = function (...args) {
             const yalcIgnoreLines = yalcIgnoreStr.split("\n");
             const yalcIncludePatterns = yalcIgnoreLines.filter(a => a.startsWith("!")).map(a => a.replace("!", ""));
             //console.log("Test1:", yalcIncludePatterns);
-            const yalcIncludePaths = globbySync(yalcIncludePatterns, { dot: true });
+            const yalcIncludePaths = globbySync(yalcIncludePatterns, { dot: true, followSymbolicLinks: false });
             let zalcAddedFiles = 0;
             for (const path of yalcIncludePaths) {
                 if (!result.includes(path)) {
