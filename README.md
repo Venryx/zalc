@@ -50,7 +50,7 @@ Customizable tools: (eg. file-syncer)
 General:
 1) If you have a dependency [A] that is yalc-including a further subdependency [B], and you want that subdependency's latest code to be seen in the root project, you need to either:
 * Include the `.yalc` folder in the `files` field of dep A. (which adds bloat to npm publishes)
-* Hack the yalc code to include the `.yalc` folder for dep A when running `yalc public/push`. (this is planned to be automated by zalc; see "Improvements" section)
+* Hack the yalc code to include the `.yalc` folder for dep A when running `yalc public/push`. (this is automated by zalc; see "Improvements" section)
 * Use an absolute-path `link:` entry for A's subdependencies. (which will annoy other developers as they have to exactly match the layout of those subdependency source-folders on their computers; also, since it uses `link:`, it causes the root `yarn.lock` to be incomplete, which has the drawbacks listed earlier)
 
 `yalc add ...`
